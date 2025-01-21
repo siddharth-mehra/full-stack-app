@@ -5,9 +5,9 @@ export interface User extends Document {
     email: string;
     password: string;
     verifyCode : string;
-    verifyCodeExpire : Date;
+    verifyCodeExpiry : Date;
     isVerified: boolean;
-    isAcceptingMessage:boolean;
+    isAcceptingMessages:boolean;
     messages:Message[]
 }
 
@@ -27,7 +27,7 @@ const MessageScehma = new Schema<Message>({
     }
 })
 
-const UserSchema = new Schema<User>({
+const UserSchema : Schema<User>=new mongoose.Schema({
     name: {
         type: String,
         required: [true,"Username is required"],
@@ -39,10 +39,7 @@ const UserSchema = new Schema<User>({
         required: [true,"Email is required"],
         unique: true,
         //  writing a regix for basic validation
-        match: [
-            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-            "Please provide a valid email",
-        ]
+        match: [/.+\@.+\..+/, 'Please use a valid email address'],
     },
     password: {
         type: String,
@@ -52,7 +49,7 @@ const UserSchema = new Schema<User>({
         type: String,
         required: [true,"Verification code is required"],
     },
-    verifyCodeExpire: {
+    verifyCodeExpiry: {
         type: Date,
         required: [true,"Verification code expire is required"],
     },
@@ -60,7 +57,7 @@ const UserSchema = new Schema<User>({
         type: Boolean,
         default:false
     },
-    isAcceptingMessage: {
+    isAcceptingMessages: {
         type: Boolean,
         required: true,
     },
