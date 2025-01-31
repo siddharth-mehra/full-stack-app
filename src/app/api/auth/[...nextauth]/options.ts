@@ -75,8 +75,7 @@ export const authOptions: NextAuthOptions = {
                 token.isAcceptingMessages=user.isAcceptingMessages;
                 token.name=user.name
             }
-            console.log("JWT User:", user);
-            console.log("Updated Token:", token);
+        
 
             return token
         },
@@ -87,8 +86,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.isAcceptingMessages=token.isAcceptingMessages;
                 session.user.name=token.name
             }
-            console.log("Session Token:", token);
-            console.log("Updated Session:", session);
+         
 
             return session
         },

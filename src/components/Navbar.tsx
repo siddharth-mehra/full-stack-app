@@ -11,6 +11,7 @@ const Navbar = () => {
     const pathname=usePathname();
   const {data:session} =useSession();
   const user:User=session?.user
+  console.log(user)
   const [login,setlogin]=useState(false);
 
   useEffect(() => {

@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
 
-const page = () => {
+const SignUppage = () => {
   const [name,setName]=useState('');
   const [nameMessage,setNameMessage]=useState('');
   const [loading,setloading]=useState(false);
@@ -190,4 +190,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SignUppage

@@ -17,7 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import { Loader2, RefreshCcw } from "lucide-react";
 
 
-const page = () => {
+const Dashboardpage = () => {
   
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -112,10 +112,10 @@ const page = () => {
   },[setValue,session,fetchAcceptMessages,fetchMessages])
   if(!session || !session.user) return <div>Please login</div>;
 
-  const { name } = session.user as User;
+  const { email } = session.user as User;
 
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
-  const profileUrl = `${baseUrl}/u/${name}`;
+  const profileUrl = `${baseUrl}/u/${email}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(profileUrl);
@@ -191,4 +191,4 @@ const page = () => {
   );
 }
 
-export default page
+export default Dashboardpage

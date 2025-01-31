@@ -33,7 +33,7 @@ const parseStringMessages = (messageString: string): string[] => {
 
 const initialMessageString =
   "What's your favorite movie?||Do you have any pets?||What's your dream job?";
-const page = () => {
+const Senderpage = () => {
   const [loading, setLoading] = useState(false);
   const [suggestedMessages, setSuggestedMessages] = useState<string[]>([]);
   const params = useParams<{ username: string }>();
@@ -174,5 +174,5 @@ const page = () => {
   )
 }
 
-export default page
+export default Senderpage
 

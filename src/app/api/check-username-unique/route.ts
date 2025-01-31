@@ -16,7 +16,6 @@ import { nameValidation } from "@/schemas/signupSchema";
         }
         // validate with zod
         const result=nameQuerySchema.safeParse(queryParam);
-        console.log(result);
         if(!result.success){
             const usernameError=result.error.format().
             name?._errors || [];      
@@ -29,8 +28,7 @@ import { nameValidation } from "@/schemas/signupSchema";
         }
 
         const {name}=result.data;
-        const existingVerifiedUserByUsername=await UserModel.findOne({name,isVerified:true})
-        console.log(existingVerifiedUserByUsername);
+        const existingVerifiedUserByUsername=await UserModel.findOne({name,isVerified:true});
         if(existingVerifiedUserByUsername){
             return Response.json(
                 {

@@ -5,9 +5,10 @@ import { Message } from "@/model/User";
 export async function POST(request: Request) {
     await dbConnect();
     const {name,content}=await request.json();
-    
+    console.log(name,content);
     try{
         const user=await UserModel.findOne({name});
+        console.log(user);
         if(!user){
             return Response.json({success:false, message:"User not found"},{status:400});
         }

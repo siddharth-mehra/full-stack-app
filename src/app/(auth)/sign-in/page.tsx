@@ -35,7 +35,7 @@ const handleGoogleSignIn = async () => {
     });
   }
 };
-const page = () => {
+const SignInpage = () => {
   
   const { toast } = useToast()
   const router=useRouter()
@@ -136,4 +136,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SignInpage
