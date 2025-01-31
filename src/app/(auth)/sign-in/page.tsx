@@ -2,9 +2,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { useToast } from "@/hooks/use-toast"
+import { toast, useToast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
-
+import GoogleButton from  'react-google-button'
 import { 
         Form,
         FormField,
@@ -18,7 +18,23 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { signinSchema } from "@/schemas/signinSchema"
 import { signIn } from "next-auth/react"
+import { Separator } from "@radix-ui/react-separator"
 
+
+const handleGoogleSignIn = async () => {
+  try {
+    
+    await signIn('google', { 
+      callbackUrl:`http://localhost:3000/dashboard` // Specify a clear redirect destination
+    });
+  } catch (error) {
+    toast({
+      title: 'Sign-in Error',
+      description: 'An unexpected error occurred',
+      variant: 'destructive',
+    });
+  }
+};
 const page = () => {
   
   const { toast } = useToast()
@@ -102,8 +118,12 @@ const page = () => {
               )}/>    
               <div className="flex justify-center items-center">
               <Button type="submit">
-                  SignIn
+                  Sign In
                 </Button>
+              </div>
+              <Separator className="my-4" />
+              <div className="flex items-center justify-center">
+                <GoogleButton onClick={handleGoogleSignIn}/>
               </div>
           </form>
           </Form>

@@ -3,6 +3,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs"
 import UserModel from "@/model/User";
 import dbConnect from "@/lib/dbConnect";
+import GoogleProvider from "next-auth/providers/google";
+
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+    throw new Error('Missing Google OAuth credentials')
+}
 
 export const authOptions: NextAuthOptions = {
     providers:[
@@ -40,9 +45,29 @@ export const authOptions: NextAuthOptions = {
                 }
             }
         }),
-        
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET
+          })
     ],
     callbacks:{
+        async signIn({ account, profile }) {
+            if (account?.provider === "google") {
+              const googleProfile = profile as { 
+                email_verified?: boolean; 
+                email?: string 
+              };
+              
+              return !!(
+                googleProfile?.email_verified && 
+                googleProfile?.email?.endsWith("@gmail.com")
+              );
+            }
+            console.log("Google Profile:", profile);
+            return true;
+          },
+          
+
         async jwt({token,user}){
             if(user){
                 token._id=user._id?.toString()
@@ -50,6 +75,9 @@ export const authOptions: NextAuthOptions = {
                 token.isAcceptingMessages=user.isAcceptingMessages;
                 token.name=user.name
             }
+            console.log("JWT User:", user);
+            console.log("Updated Token:", token);
+
             return token
         },
         async session({session,token}){
@@ -59,6 +87,9 @@ export const authOptions: NextAuthOptions = {
                 session.user.isAcceptingMessages=token.isAcceptingMessages;
                 session.user.name=token.name
             }
+            console.log("Session Token:", token);
+            console.log("Updated Session:", session);
+
             return session
         },
     },

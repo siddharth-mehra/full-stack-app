@@ -128,7 +128,7 @@ const page = () => {
 
   return (
     <div className="w-full max-w-[1180px] mx-auto">
-      <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
+      <div className="my-8 mx-4 md:mx-8 lg:mx-auto py-16 px-4 bg-white rounded w-full max-w-6xl">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
 
       <div className="mb-4">
@@ -174,6 +174,7 @@ const page = () => {
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         {messages.length > 0 ? (
           messages.map((message, index) => (
+            console.log(message.content),
             <MessageCard
               key={`message-${index}`}
               message={message}

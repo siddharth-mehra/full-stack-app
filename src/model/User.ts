@@ -9,6 +9,7 @@ export interface User extends Document {
     isVerified: boolean;
     isAcceptingMessages:boolean;
     messages:Message[]
+    suggestedMessages:Message[]
 }
 
 export interface Message extends Document{
@@ -16,7 +17,7 @@ export interface Message extends Document{
     createdAt:Date
 }
 
-const MessageScehma = new Schema<Message>({
+const MessageScehma:Schema<Message>=new mongoose.Schema({
     content:{
         type:String,
         required:true
@@ -61,7 +62,8 @@ const UserSchema : Schema<User>=new mongoose.Schema({
         type: Boolean,
         required: true,
     },
-    messages:[MessageScehma]
+    messages:[MessageScehma],
+    suggestedMessages:[MessageScehma]
 });
 
 

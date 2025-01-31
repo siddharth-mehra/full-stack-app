@@ -177,7 +177,7 @@ const page = () => {
                   <p>
                     Already have an account?{' '}
                     <Link href="/sign-in">
-                      <a>Sign in</a>
+                      Sign in
                     </Link>
                   </p>
           </div>

@@ -9,7 +9,7 @@ export async function sendVerificationEmail(
 ): Promise<ApiResponse> {
     try{
         await resend.emails.send({
-            from: 'Mess-Age <YIiD0@example.com>',
+            from: 'resend.com>',
             to:email,
             subject: 'My Verification | Verify Email',
             react: VerificationEmail({name,otp:verifyCode})
