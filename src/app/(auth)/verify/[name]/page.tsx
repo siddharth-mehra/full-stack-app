@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-const page = () => {
+const VerifyPage = () => {
   const router=useRouter();
   const param=useParams<{name:string}>();
   const {toast}=useToast();
@@ -28,6 +28,7 @@ const page = () => {
     resolver:zodResolver(VerifySchema),
   });
 
+  
   const onSubmit=async(data:z.infer<typeof VerifySchema>)=>{
     try{
       const response=await axios.post('/api/verify-code',{
@@ -86,4 +87,4 @@ const page = () => {
   )
 }
 
-export default page
+export default VerifyPage

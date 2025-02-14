@@ -1,36 +1,33 @@
-import { streamText,Message} from "ai";
-import {createGoogleGenerativeAI} from "@ai-sdk/google";
-import {initialMessage} from "@/data/data";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const google=createGoogleGenerativeAI({
-    apiKey:process.env.GEMINI_API_KEY||"",
-});
+export const runtime = "edge";
 
-export const runtime="edge";
+const DEFAULT_PROMPT = `Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes that encourage friendly interaction.`;
 
-const generateId=()=>Math.random().toString(36).slice(2,15)
+export async function POST() {
+    if (!process.env.GEMINI_API_KEY) {
+        return Response.json({ error: "Missing API key" }, { status: 500 });
+    }
 
+    try {
+        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-const buildGoogleGenAIPrompt=(messages:Message[]):Message[]=>[
-    {
-        id:generateId(),
-        role:"user",
-        content:initialMessage.content
-    },
-    ...messages.map((message)=>({
-        id:message.id ||generateId(),
-        role:message.role,
-        content:message.content
-    }))
-]
+        const result = await model.generateContent(DEFAULT_PROMPT);
+        const response = result.response.text();
+        return new Response(
+            JSON.stringify({ message: "Questions generated successfully", questions: response }),
+            { status: 200, headers: { "Content-Type": "application/json" } }
+        );;
 
-
-export async function POST(request:Request){
-    const {messages} = await request.json();
-    const stream=await streamText({
-        model:google("gemini-pro"),
-        messages:buildGoogleGenAIPrompt(messages),
-        temperature:0.7,
-    })
-    return stream?.toDataStreamResponse();
+    } catch (error) {
+        console.error('Gemini API Error:', error);
+        return Response.json({ 
+            error: error instanceof Error ? error.message : "Generation failed",
+            details: error instanceof Error ? error.stack : undefined
+        }, { status: 500 });
+    }
 }
+
+
+

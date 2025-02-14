@@ -24,5 +24,6 @@ declare module 'next-auth/jwt'{
         isVerified?: boolean,
         isAcceptingMessages?: boolean,
         name?: string
+        
     }
 }

@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
 
-const page = () => {
+const SignUppage = () => {
   const [name,setName]=useState('');
   const [nameMessage,setNameMessage]=useState('');
   const [loading,setloading]=useState(false);
@@ -54,10 +54,11 @@ const page = () => {
         description: 'You can now sign in',
       })
       router.replace(`/verify/${data.name}`);
+      console.log(response.data.message);
     }catch(error){
       console.log(error);
       const axiosError=error as AxiosError<ApiResponse>;
-      let ErrorMessage=axiosError.response?.data.message ?? "Error signing up";
+      const ErrorMessage=axiosError.response?.data.message ?? "Error signing up";
       toast({
         title: 'Sign up failed',
         description: ErrorMessage,
@@ -170,6 +171,7 @@ const page = () => {
                     :('Signup')
                   }
                 </Button>
+                
               </div>
           </form>
           </Form>
@@ -177,7 +179,7 @@ const page = () => {
                   <p>
                     Already have an account?{' '}
                     <Link href="/sign-in">
-                      <a>Sign in</a>
+                      Sign in
                     </Link>
                   </p>
           </div>
@@ -190,4 +192,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SignUppage
