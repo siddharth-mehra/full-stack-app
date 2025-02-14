@@ -4,7 +4,7 @@ export const runtime = "edge";
 
 const DEFAULT_PROMPT = `Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes that encourage friendly interaction.`;
 
-export async function POST(request: Request) {
+export async function POST() {
     if (!process.env.GEMINI_API_KEY) {
         return Response.json({ error: "Missing API key" }, { status: 500 });
     }

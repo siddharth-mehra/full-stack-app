@@ -28,6 +28,7 @@ const handleGoogleSignIn = async () => {
       callbackUrl:`http://localhost:3000/dashboard` // Specify a clear redirect destination
     });
   } catch (error) {
+    console.error('Google sign-in error:', error);
     toast({
       title: 'Sign-in Error',
       description: 'An unexpected error occurred',

@@ -53,7 +53,7 @@ const Dashboardpage = () => {
     }finally{
       setIsSwitchLoading(false);
     }
-  },[setValue])
+  },[setValue,toast])
 
   const fetchMessages=useCallback(async(refresh:boolean=false)=>{
     setLoading(true);
@@ -79,7 +79,7 @@ const Dashboardpage = () => {
       setLoading(false);
       setIsSwitchLoading(false);
     }
-  },[setLoading,setMessages])
+  },[setLoading,setMessages,toast])
 
 
   // handle switch change

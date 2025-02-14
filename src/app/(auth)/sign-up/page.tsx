@@ -54,10 +54,11 @@ const SignUppage = () => {
         description: 'You can now sign in',
       })
       router.replace(`/verify/${data.name}`);
+      console.log(response.data.message);
     }catch(error){
       console.log(error);
       const axiosError=error as AxiosError<ApiResponse>;
-      let ErrorMessage=axiosError.response?.data.message ?? "Error signing up";
+      const ErrorMessage=axiosError.response?.data.message ?? "Error signing up";
       toast({
         title: 'Sign up failed',
         description: ErrorMessage,
