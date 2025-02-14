@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-
 import mongoose from "mongoose";
 export async function GET(req:Request) {
     
@@ -13,7 +12,6 @@ export async function GET(req:Request) {
                 status: 401,
             });
         }    
-        
         const userId=new mongoose.Types.ObjectId(session.user._id);
         
         try{
@@ -23,7 +21,7 @@ export async function GET(req:Request) {
                 {$sort:{'messages.createdAt':-1}},
                 {$group:{_id:'$_id',messages:{$push:"$messages"}}},
             ])
-            console.log(user[0].messages);
+            
             if(!user || user.length===0){
                 return new Response(JSON.stringify({ success: false, error: "User not found" }), {
                     status: 404,

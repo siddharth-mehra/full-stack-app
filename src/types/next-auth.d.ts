@@ -7,7 +7,6 @@ declare module 'next-auth'{
             isVerified?: boolean,
             isAcceptingMessages?: boolean,
             name?: string
-            suggestedMessages?: Array<Message>;
         }& DefultSession['user']
     }
 
@@ -16,7 +15,6 @@ declare module 'next-auth'{
         isVerified?: boolean,
         isAcceptingMessages?: boolean,
         name?: string
-        suggestedMessages?: Array<Message>;
     }
 }
 
@@ -26,6 +24,6 @@ declare module 'next-auth/jwt'{
         isVerified?: boolean,
         isAcceptingMessages?: boolean,
         name?: string
-        suggestedMessages?: Array<Message>;
+        
     }
 }

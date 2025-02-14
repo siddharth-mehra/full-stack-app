@@ -112,10 +112,10 @@ const Dashboardpage = () => {
   },[setValue,session,fetchAcceptMessages,fetchMessages])
   if(!session || !session.user) return <div>Please login</div>;
 
-  const { email } = session.user as User;
+  const { name } = session.user as User;
 
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
-  const profileUrl = `${baseUrl}/u/${email}`;
+  const profileUrl = `${baseUrl}/u/${name}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(profileUrl);

@@ -1,3 +1,4 @@
+// import { MessageSchema } from "@/schemas/messageSchema";
 import mongoose,{Schema,Document} from "mongoose";
 
 export interface User extends Document {
@@ -8,8 +9,7 @@ export interface User extends Document {
     verifyCodeExpiry : Date;
     isVerified: boolean;
     isAcceptingMessages:boolean;
-    messages:Message[]
-    suggestedMessages:Message[]
+    messages:Message[],
 }
 
 export interface Message extends Document{
@@ -17,7 +17,7 @@ export interface Message extends Document{
     createdAt:Date
 }
 
-const MessageScehma:Schema<Message>=new mongoose.Schema({
+const MessageScehma = new Schema<Message>({
     content:{
         type:String,
         required:true
@@ -63,7 +63,6 @@ const UserSchema : Schema<User>=new mongoose.Schema({
         required: true,
     },
     messages:[MessageScehma],
-    suggestedMessages:[MessageScehma]
 });
 
 
